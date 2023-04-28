@@ -31,8 +31,8 @@ public class AutorService {
        return repository.save(model);
     }
 
-    public Optional<AutorModel> buscarPorID(Long id) {
-        return repository.findById(id);
+    public AutorModel buscarPorID(Long id) {
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("Autor não encontrado"));
     }
 
 }

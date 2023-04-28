@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class LivrosService {
@@ -38,7 +37,7 @@ public class LivrosService {
         return repository.save(model);
     }
 
-    public Optional<LivrosModel> buscarPorId(Long id) {
-        return repository.findById(id);
+    public LivrosModel buscarPorId(Long id) {
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("Livro não encontrado"));
     }
 }

@@ -30,7 +30,7 @@ public class LivrosController {
     }
 
     @GetMapping("{id}")
-    public Optional<LivrosModel> buscarId(@PathVariable Long id) {
+    public LivrosModel buscarId(@PathVariable Long id) {
         return service.buscarPorId(id);
     }
 }

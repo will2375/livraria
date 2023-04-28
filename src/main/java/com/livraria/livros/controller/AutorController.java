@@ -26,7 +26,7 @@ public class AutorController {
     public ResponseEntity<List<AutorResponse>> buscarTodos() { return ResponseEntity.ok(service.listaAutores());}
 
     @GetMapping("{id}")
-    public ResponseEntity<Optional<AutorModel>> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<AutorModel> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(service.buscarPorID(id));
     }
 

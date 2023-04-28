@@ -22,7 +22,7 @@ public class CategoriaService {
         return repository.save(model);
     }
 
-    public Optional<CategoriaModel> buscarPorid(Long id){
-        return repository.findById(id);
+    public CategoriaModel buscarPorid(Long id){
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("Categoria não encontrado"));
     }
 }

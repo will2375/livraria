@@ -27,7 +27,7 @@ public class CategoriaController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Optional<CategoriaModel>> buscarId(@PathVariable Long id) {
+    public ResponseEntity<CategoriaModel> buscarId(@PathVariable Long id) {
         return ResponseEntity.ok(service.buscarPorid(id));
     }
 }
