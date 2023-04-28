@@ -36,18 +36,26 @@ public class LivrosModel {
     private String sumario;
 
     @Column
-    @NotBlank @NotNull @NotEmpty
-    private BigDecimal preco;
+    private Double preco;
 
     @Column
-    @NotBlank @NotNull @NotEmpty
-    private String paginas;
+    private Integer paginas;
 
     @Column
     @NotBlank @NotNull @NotEmpty
     private String isbn;
 
     @Column
-    @NotBlank @NotNull @NotEmpty
     private LocalDate dataLancamento;
+
+    @ManyToOne
+    @JoinColumn(name = "autor_id", referencedColumnName = "id")
+    private AutorModel autor;
+
+
+    @ManyToOne
+    @JoinColumn(name = "categoria_id", referencedColumnName = "id")
+    private CategoriaModel categoria;
+
+
 }

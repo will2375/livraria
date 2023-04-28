@@ -26,8 +26,8 @@ public class CategoriaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastar(model));
     }
 
-    @GetMapping({"id"})
-    public Optional<CategoriaModel> buscarId(@PathVariable Long id) {
-        return service.buscarPorid(id);
+    @GetMapping("{id}")
+    public ResponseEntity<Optional<CategoriaModel>> buscarId(@PathVariable Long id) {
+        return ResponseEntity.ok(service.buscarPorid(id));
     }
 }

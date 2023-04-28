@@ -23,7 +23,7 @@ public class AutorController {
     private AutorService service;
 
     @GetMapping
-    public ResponseEntity<List<AutorResponse>> buscarTodos() {return ResponseEntity.ok(service.listaAutores());}
+    public ResponseEntity<List<AutorResponse>> buscarTodos() { return ResponseEntity.ok(service.listaAutores());}
 
     @GetMapping("{id}")
     public ResponseEntity<Optional<AutorModel>> buscarPorId(@PathVariable Long id) {
