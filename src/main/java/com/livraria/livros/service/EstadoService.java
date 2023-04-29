@@ -1,6 +1,7 @@
 package com.livraria.livros.service;
 
 import com.livraria.livros.exception.ValidacaoCampoNulo;
+import com.livraria.livros.exception.ValidacaoDeID;
 import com.livraria.livros.model.EstadoModel;
 import com.livraria.livros.repository.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,6 @@ public class EstadoService {
     }
 
     public EstadoModel buscarPorId(Long id) {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("Estado não encontrado"));
+        return repository.findById(id).orElseThrow(() -> new ValidacaoDeID("Estado não encontrado"));
     }
 }

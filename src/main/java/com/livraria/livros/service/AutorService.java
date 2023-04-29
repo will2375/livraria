@@ -1,5 +1,6 @@
 package com.livraria.livros.service;
 
+import com.livraria.livros.exception.ValidacaoDeID;
 import com.livraria.livros.model.AutorModel;
 import com.livraria.livros.model.autordto.AutorResponse;
 import com.livraria.livros.repository.AutorRepository;
@@ -32,7 +33,7 @@ public class AutorService {
     }
 
     public AutorModel buscarPorID(Long id) {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("Autor não encontrado"));
+        return repository.findById(id).orElseThrow(() -> new ValidacaoDeID("Autor não encontrado"));
     }
 
 }

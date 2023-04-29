@@ -1,9 +1,6 @@
 package com.livraria.livros.service;
 
-import com.livraria.livros.exception.ValidacaoCampoNulo;
-import com.livraria.livros.exception.ValidacaoDeLancamento;
-import com.livraria.livros.exception.ValidacaoDePaginas;
-import com.livraria.livros.exception.ValidacaoDePreco;
+import com.livraria.livros.exception.*;
 import com.livraria.livros.model.LivrosModel;
 import com.livraria.livros.repository.LivrosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +35,6 @@ public class LivrosService {
     }
 
     public LivrosModel buscarPorId(Long id) {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("Livro não encontrado"));
+        return repository.findById(id).orElseThrow(() -> new ValidacaoDeID("Livro não encontrado"));
     }
 }
