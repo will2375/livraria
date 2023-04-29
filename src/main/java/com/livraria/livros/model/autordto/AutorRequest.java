@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class AutorRequest {
 
-    private Long id;
     @NotNull(message = "nome não pode ser nulo")
     @NotEmpty(message = "nome não pode ser vazio")
     private String nome;
@@ -27,5 +26,6 @@ public class AutorRequest {
     @NotNull(message = "descrição não pode ser nulo")
     @NotEmpty(message = "descrição não pode ser vazio")
     private String descricao;
+
     private LocalDateTime dataCadastro;
 }

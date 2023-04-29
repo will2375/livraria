@@ -3,7 +3,7 @@ package com.livraria.livros.controller;
 import com.livraria.livros.model.AutorModel;
 import com.livraria.livros.model.autordto.AutorRequest;
 import com.livraria.livros.model.autordto.AutorResponse;
-import com.livraria.livros.model.autordto.factory.AutorModelFactory;
+import com.livraria.livros.model.autordto.factory.AutorRequestFactory;
 import com.livraria.livros.model.autordto.factory.AutorResponseFactory;
 import com.livraria.livros.service.AutorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/autor")
@@ -32,7 +31,7 @@ public class AutorController {
 
     @PostMapping
     public ResponseEntity<AutorResponse> cadastrar(@RequestBody @Valid AutorRequest request) {
-        AutorModel model = AutorModelFactory.criar(request);
+        AutorModel model = AutorRequestFactory.criar(request);
         service.cadastro(model);
         AutorResponse response = AutorResponseFactory.criar(model);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
