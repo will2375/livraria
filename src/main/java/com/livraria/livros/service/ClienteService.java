@@ -1,9 +1,8 @@
 package com.livraria.livros.service;
 
+import com.livraria.livros.exception.ValidacaoDeDuplicidade;
 import com.livraria.livros.exception.ValidacaoDeID;
-import com.livraria.livros.model.AutorModel;
 import com.livraria.livros.model.ClienteModel;
-import com.livraria.livros.model.autordto.AutorResponse;
 import com.livraria.livros.model.clientedto.ClienteResponse;
 import com.livraria.livros.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +28,16 @@ public class ClienteService {
     }
 
     public ClienteModel cadastrar(ClienteModel model) {
+
+        var existeEmail = repository.findByEmail(model.getEmail());
+        var existeCpf = repository.findByCpf(model.getCpf());
+
+        if (existeCpf != null) {
+            throw new ValidacaoDeDuplicidade("CPF ja cadastrado");
+        } else if (existeEmail != null) {
+            throw new ValidacaoDeDuplicidade("EMAIL ja cadastrado");
+        }
+
         return repository.save(model);
     }
 

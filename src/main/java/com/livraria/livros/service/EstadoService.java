@@ -1,6 +1,7 @@
 package com.livraria.livros.service;
 
 import com.livraria.livros.exception.ValidacaoCampoNulo;
+import com.livraria.livros.exception.ValidacaoDeDuplicidade;
 import com.livraria.livros.exception.ValidacaoDeID;
 import com.livraria.livros.model.EstadoModel;
 import com.livraria.livros.repository.EstadoRepository;
@@ -20,7 +21,12 @@ public class EstadoService {
     }
 
     public EstadoModel cadastrar(EstadoModel model) {
-        if (model.getPais().getId().equals(null)) {
+
+        var existeNome = repository.findyByNome(model.getNome());
+
+        if (existeNome != null) {
+            throw new ValidacaoDeDuplicidade("nome ja cadastrado");
+        } if (model.getPais().getId().equals(null)) {
             throw new ValidacaoCampoNulo("Pais não pode ser nulo");
         }
         return repository.save(model);

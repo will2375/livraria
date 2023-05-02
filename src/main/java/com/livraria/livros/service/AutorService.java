@@ -1,5 +1,6 @@
 package com.livraria.livros.service;
 
+import com.livraria.livros.exception.ValidacaoDeDuplicidade;
 import com.livraria.livros.exception.ValidacaoDeID;
 import com.livraria.livros.model.AutorModel;
 import com.livraria.livros.model.autordto.AutorResponse;
@@ -27,6 +28,12 @@ public class AutorService {
     }
 
     public AutorModel cadastro(AutorModel model) {
+
+        var existeEmail = repository.findByEmail(model.getEmail());
+
+        if (existeEmail != null) {
+            throw new ValidacaoDeDuplicidade("EMAIL ja cadastrado");
+        }
 
         model.setDataCadastro(LocalDateTime.now());
        return repository.save(model);

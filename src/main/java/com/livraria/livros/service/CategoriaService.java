@@ -1,5 +1,6 @@
 package com.livraria.livros.service;
 
+import com.livraria.livros.exception.ValidacaoDeDuplicidade;
 import com.livraria.livros.exception.ValidacaoDeID;
 import com.livraria.livros.model.CategoriaModel;
 import com.livraria.livros.repository.CategoriaRepository;
@@ -20,6 +21,12 @@ public class CategoriaService {
     }
 
     public CategoriaModel cadastar(CategoriaModel model) {
+
+        var existeNome = repository.findyByNome(model.getNome());
+
+        if (existeNome != null) {
+            throw new ValidacaoDeDuplicidade("categonia ja cadastrada");
+        }
         return repository.save(model);
     }
 

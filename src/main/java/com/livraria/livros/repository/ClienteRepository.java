@@ -4,4 +4,7 @@ import com.livraria.livros.model.ClienteModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ClienteRepository extends JpaRepository<ClienteModel, Long> {
+
+    ClienteModel findByEmail(String email);
+    ClienteModel findByCpf(String cpf);
 }

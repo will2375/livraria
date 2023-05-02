@@ -1,5 +1,6 @@
 package com.livraria.livros.service;
 
+import com.livraria.livros.exception.ValidacaoDeDuplicidade;
 import com.livraria.livros.exception.ValidacaoDeID;
 import com.livraria.livros.exception.ValidacaoDeValidade;
 import com.livraria.livros.model.CupomModel;
@@ -22,7 +23,12 @@ public class CupomService {
 
     public CupomModel cadastrar(CupomModel model) {
 
-        if (model.getValidade().isBefore(LocalDate.now())) {
+        var existeCupom = repository.findyByCodigo(model.getCodigo());
+
+
+        if (existeCupom != null){
+            throw new ValidacaoDeDuplicidade("codigo ja cadastrado");
+        } if (model.getValidade().isBefore(LocalDate.now())) {
             throw new ValidacaoDeValidade("cupom deve vençer em data futura");
         }
         return repository.save(model);

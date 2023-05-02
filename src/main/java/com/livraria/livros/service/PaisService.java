@@ -1,5 +1,6 @@
 package com.livraria.livros.service;
 
+import com.livraria.livros.exception.ValidacaoDeDuplicidade;
 import com.livraria.livros.exception.ValidacaoDeID;
 import com.livraria.livros.model.PaisModel;
 import com.livraria.livros.repository.PaisRepository;
@@ -19,6 +20,13 @@ public class PaisService {
     }
 
     public PaisModel cadasatrar(PaisModel model) {
+
+        var existePais = repository.findByNome(model.getNome());
+
+        if( existePais != null) {
+            throw new ValidacaoDeDuplicidade("Pais ja cadastrado");
+        }
+
         return repository.save(model);
     }
 

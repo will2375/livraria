@@ -20,7 +20,12 @@ public class LivrosService {
     }
 
     public LivrosModel cadastro(LivrosModel model) {
-        if (model.getPaginas() < 100) {
+
+        var existeTitulo = repository.findyByTitulo(model.getTitulo());
+
+        if (existeTitulo != null) {
+            throw new ValidacaoDeDuplicidade("titulo ja cadastrado");
+        } if (model.getPaginas() < 100) {
             throw new  ValidacaoDePaginas("O livro precisa ter no minimo 100 paginas");
         } if (model.getPreco()< 20) {
             throw new ValidacaoDePreco("O valor do livro não pode ser inferior a 20 reais");
