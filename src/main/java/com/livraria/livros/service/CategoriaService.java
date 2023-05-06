@@ -5,10 +5,10 @@ import com.livraria.livros.exception.ValidacaoDeID;
 import com.livraria.livros.model.CategoriaModel;
 import com.livraria.livros.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CategoriaService {
@@ -16,13 +16,16 @@ public class CategoriaService {
     @Autowired
     CategoriaRepository repository;
 
-    public List<CategoriaModel> listaCategoria(){
-        return repository.findAll();
+    public Page<CategoriaModel> listaCategoria(){
+
+        Pageable pageable = PageRequest.of(0, 5);
+
+        return repository.findAll(pageable);
     }
 
     public CategoriaModel cadastar(CategoriaModel model) {
 
-        var existeNome = repository.findyByNome(model.getNome());
+        var existeNome = repository.findByNome(model.getNome());
 
         if (existeNome != null) {
             throw new ValidacaoDeDuplicidade("categonia ja cadastrada");

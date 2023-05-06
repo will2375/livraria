@@ -3,6 +3,7 @@ package com.livraria.livros.controller;
 import com.livraria.livros.model.PaisModel;
 import com.livraria.livros.service.PaisService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class PaisController {
     PaisService service;
 
     @GetMapping
-    public List<PaisModel> buscarTodos() {
+    public Page<PaisModel> buscarTodos() {
         return service.buscarTodos();
     }
 

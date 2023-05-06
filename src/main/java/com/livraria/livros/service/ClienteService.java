@@ -5,7 +5,11 @@ import com.livraria.livros.exception.ValidacaoDeID;
 import com.livraria.livros.model.ClienteModel;
 import com.livraria.livros.model.clientedto.ClienteResponse;
 import com.livraria.livros.repository.ClienteRepository;
+import com.livraria.livros.repository.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,9 +20,15 @@ public class ClienteService {
 
     @Autowired
     ClienteRepository repository;
+    @Autowired
+    EstadoRepository estadoRepository;
+
 
     public List<ClienteResponse> listaClientes() {
-        List<ClienteModel> modelList = repository.findAll();
+
+        Pageable pageable = PageRequest.of(0, 2);
+
+        Page<ClienteModel> modelList = repository.findAll(pageable);
         return modelList.stream().map(model -> {
             return ClienteResponse.builder()
                     .id(model.getId()).nome(model.getNome()).sobrenome(model.getSobrenome())
@@ -34,7 +44,7 @@ public class ClienteService {
 
         if (existeCpf != null) {
             throw new ValidacaoDeDuplicidade("CPF ja cadastrado");
-        } else if (existeEmail != null) {
+        } if (existeEmail != null) {
             throw new ValidacaoDeDuplicidade("EMAIL ja cadastrado");
         }
 

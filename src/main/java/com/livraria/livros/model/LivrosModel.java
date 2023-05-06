@@ -1,5 +1,6 @@
 package com.livraria.livros.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -54,5 +56,10 @@ public class LivrosModel {
     @ManyToOne
     @JoinColumn(name = "categoria_id", referencedColumnName = "id")
     private CategoriaModel categoria;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "livro", cascade = CascadeType.ALL)
+    private List<CompraModel> compras;
+
 
 }

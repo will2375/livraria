@@ -6,6 +6,9 @@ import com.livraria.livros.model.AutorModel;
 import com.livraria.livros.model.autordto.AutorResponse;
 import com.livraria.livros.repository.AutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,7 +23,10 @@ public class AutorService {
     AutorRepository repository;
 
     public List<AutorResponse> listaAutores() {
-        List<AutorModel> modelList = repository.findAll();
+
+        Pageable pageable = PageRequest.of(0, 2);
+
+        Page<AutorModel> modelList = repository.findAll(pageable);
         return modelList.stream().map(model -> {
             return AutorResponse.builder()
                     .nome(model.getNome()).descricao(model.getDescricao()).build();

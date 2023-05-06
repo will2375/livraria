@@ -5,6 +5,9 @@ import com.livraria.livros.exception.ValidacaoDeID;
 import com.livraria.livros.model.PaisModel;
 import com.livraria.livros.repository.PaisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +18,11 @@ public class PaisService {
     @Autowired
     PaisRepository repository;
 
-    public List<PaisModel> buscarTodos() {
-        return repository.findAll();
+    public Page<PaisModel> buscarTodos() {
+
+        Pageable pageable = PageRequest.of(0, 2);
+
+        return repository.findAll(pageable);
     }
 
     public PaisModel cadasatrar(PaisModel model) {

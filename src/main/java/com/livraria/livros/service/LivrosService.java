@@ -4,6 +4,9 @@ import com.livraria.livros.exception.*;
 import com.livraria.livros.model.LivrosModel;
 import com.livraria.livros.repository.LivrosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -15,13 +18,16 @@ public class LivrosService {
     @Autowired
     LivrosRepository repository;
 
-    public List<LivrosModel> buscarTodos() {
-        return repository.findAll();
+    public Page<LivrosModel> buscarTodos() {
+
+        Pageable pageable = PageRequest.of(0, 2);
+
+        return repository.findAll(pageable);
     }
 
     public LivrosModel cadastro(LivrosModel model) {
 
-        var existeTitulo = repository.findyByTitulo(model.getTitulo());
+        var existeTitulo = repository.findByTitulo(model.getTitulo());
 
         if (existeTitulo != null) {
             throw new ValidacaoDeDuplicidade("titulo ja cadastrado");

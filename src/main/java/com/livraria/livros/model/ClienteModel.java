@@ -1,11 +1,13 @@
 package com.livraria.livros.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -50,4 +52,9 @@ public class ClienteModel {
 
     @Column
     private String cep;
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<CompraModel> clientes;
 }

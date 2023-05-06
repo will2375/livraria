@@ -3,6 +3,7 @@ package com.livraria.livros.controller;
 import com.livraria.livros.model.EstadoModel;
 import com.livraria.livros.service.EstadoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class EstadoController {
     EstadoService service;
 
     @GetMapping
-    public List<EstadoModel> buscarTodos() {
+    public Page<EstadoModel> buscarTodos() {
         return service.buscarTodos();
     }
 

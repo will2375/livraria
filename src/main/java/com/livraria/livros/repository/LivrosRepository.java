@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LivrosRepository extends JpaRepository<LivrosModel, Long> {
 
-    LivrosModel findyByTitulo(String titulo);
+    LivrosModel findByTitulo(String titulo);
 }

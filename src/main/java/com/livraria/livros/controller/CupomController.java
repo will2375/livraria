@@ -3,6 +3,7 @@ package com.livraria.livros.controller;
 import com.livraria.livros.model.CupomModel;
 import com.livraria.livros.service.CupomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class CupomController {
     CupomService service;
 
     @GetMapping
-    public List<CupomModel> listaCupom() {
+    public Page<CupomModel> listaCupom() {
         return service.listarCupons();
     }
 

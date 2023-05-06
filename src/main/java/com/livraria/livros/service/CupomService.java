@@ -6,10 +6,12 @@ import com.livraria.livros.exception.ValidacaoDeValidade;
 import com.livraria.livros.model.CupomModel;
 import com.livraria.livros.repository.CupomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Service
 public class CupomService {
@@ -17,13 +19,16 @@ public class CupomService {
     @Autowired
     CupomRepository repository;
 
-    public List<CupomModel> listarCupons() {
-        return repository.findAll();
+    public Page<CupomModel> listarCupons() {
+
+        Pageable pageable = PageRequest.of(0, 2);
+
+        return repository.findAll(pageable);
     }
 
     public CupomModel cadastrar(CupomModel model) {
 
-        var existeCupom = repository.findyByCodigo(model.getCodigo());
+        var existeCupom = repository.findByCodigo(model.getCodigo());
 
 
         if (existeCupom != null){

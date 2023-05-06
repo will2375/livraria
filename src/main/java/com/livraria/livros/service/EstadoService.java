@@ -6,6 +6,9 @@ import com.livraria.livros.exception.ValidacaoDeID;
 import com.livraria.livros.model.EstadoModel;
 import com.livraria.livros.repository.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,13 +19,16 @@ public class EstadoService {
     @Autowired
     EstadoRepository repository;
 
-    public List<EstadoModel> buscarTodos() {
-        return repository.findAll();
+    public Page<EstadoModel> buscarTodos() {
+
+        Pageable pageable = PageRequest.of(0, 2);
+
+        return repository.findAll(pageable);
     }
 
     public EstadoModel cadastrar(EstadoModel model) {
 
-        var existeNome = repository.findyByNome(model.getNome());
+        var existeNome = repository.findByNome(model.getNome());
 
         if (existeNome != null) {
             throw new ValidacaoDeDuplicidade("nome ja cadastrado");
