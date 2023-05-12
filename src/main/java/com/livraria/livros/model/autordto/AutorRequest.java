@@ -1,5 +1,7 @@
 package com.livraria.livros.model.autordto;
 
+import com.livraria.livros.exception.Unique;
+import com.livraria.livros.model.AutorModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +24,7 @@ public class AutorRequest {
     @NotNull(message = "email não pode ser nulo")
     @NotEmpty(message = "email não pode ser vazio")
     @Email
+    @Unique(entityClass = AutorModel.class, fieldName = "email")
     private String email;
     @NotNull(message = "descrição não pode ser nulo")
     @NotEmpty(message = "descrição não pode ser vazio")

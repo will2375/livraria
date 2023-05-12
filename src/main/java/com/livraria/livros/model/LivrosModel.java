@@ -1,6 +1,7 @@
 package com.livraria.livros.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.livraria.livros.exception.Unique;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,6 +27,7 @@ public class LivrosModel {
 
     @Column(unique = true)
     @NotBlank @NotNull @NotEmpty
+    @Unique(entityClass = LivrosModel.class, fieldName = "titulo")
     private String titulo;
 
     @Column(unique = true, length = 500)
@@ -59,7 +61,7 @@ public class LivrosModel {
 
     @JsonIgnore
     @OneToMany(mappedBy = "livro", cascade = CascadeType.ALL)
-    private List<CompraModel> compras;
+    private List<Livros> compras;
 
 
 }

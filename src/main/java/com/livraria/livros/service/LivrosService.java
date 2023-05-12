@@ -27,25 +27,10 @@ public class LivrosService {
 
     public LivrosModel cadastro(LivrosModel model) {
 
-        var existeTitulo = repository.findByTitulo(model.getTitulo());
-
-        if (existeTitulo != null) {
-            throw new ValidacaoDeDuplicidade("titulo ja cadastrado");
-        } if (model.getPaginas() < 100) {
-            throw new  ValidacaoDePaginas("O livro precisa ter no minimo 100 paginas");
-        } if (model.getPreco()< 20) {
-            throw new ValidacaoDePreco("O valor do livro não pode ser inferior a 20 reais");
-        } if (model.getDataLancamento().isBefore(LocalDate.now())) {
-            throw new ValidacaoDeLancamento("O lançamento não pode ser antes de hoje");
-        } if (model.getAutor().getId().equals(null)){
-            throw new ValidacaoCampoNulo("Autor não pode ser nulo");
-        } if (model.getCategoria().getId().equals(null)) {
-            throw new ValidacaoCampoNulo("Categoria não pode ser nula");
-        }
         return repository.save(model);
     }
 
     public LivrosModel buscarPorId(Long id) {
-        return repository.findById(id).orElseThrow(() -> new ValidacaoDeID("Livro não encontrado"));
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("Livro não encontrado"));
     }
 }

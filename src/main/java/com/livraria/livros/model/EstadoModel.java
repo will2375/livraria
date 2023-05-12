@@ -1,5 +1,6 @@
 package com.livraria.livros.model;
 
+import com.livraria.livros.exception.Unique;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +20,7 @@ public class EstadoModel {
     private Long id;
 
     @Column(unique = true)
+    @Unique(entityClass = EstadoModel.class, fieldName = "nome")
     private String nome;
 
     @ManyToOne

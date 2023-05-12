@@ -1,8 +1,5 @@
 package com.livraria.livros.service;
 
-import com.livraria.livros.exception.ValidacaoDeCupom;
-import com.livraria.livros.exception.ValidacaoDeID;
-import com.livraria.livros.exception.ValidacaoDeQuantidade;
 import com.livraria.livros.model.CompraModel;
 import com.livraria.livros.model.CupomModel;
 import com.livraria.livros.repository.CompraRepository;
@@ -36,20 +33,11 @@ public class CompraService {
 
     public CompraModel cadastrar(CompraModel model) {
 
-        var cupomUsado = repository.findByCupom(model.getCupom());
-
-        if(model.getQuantidade() < 1) {
-            throw new ValidacaoDeQuantidade("Quantidade de livro deve ser 1 ou maior");
-        } if(cupomUsado != null) {
-            throw new ValidacaoDeCupom("Cupom ja utilizado");
-        }
-
-
 
         return repository.save(model);
     }
 
     public CompraModel buscarId(Long id) {
-        return repository.findById(id).orElseThrow(() -> new ValidacaoDeID("Id não encontrado"));
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("Id não encontrado"));
     }
 }

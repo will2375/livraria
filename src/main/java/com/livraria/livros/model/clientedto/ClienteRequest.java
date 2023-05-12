@@ -1,5 +1,7 @@
 package com.livraria.livros.model.clientedto;
 
+import com.livraria.livros.exception.Unique;
+import com.livraria.livros.model.ClienteModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,6 +29,7 @@ public class ClienteRequest {
     @NotNull(message = "email não pode ser nulo")
     @NotEmpty(message = "email não pode ser vazio")
     @Email
+    @Unique(entityClass = ClienteModel.class, fieldName = "email")
     private String email;
 
     @NotNull(message = "cpf não pode ser nulo")

@@ -1,6 +1,7 @@
 package com.livraria.livros.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.livraria.livros.exception.Unique;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,7 +25,7 @@ public class CategoriaModel {
     private Long id;
 
     @Column(unique = true)
-    @NotNull @NotEmpty @NotBlank
+    @NotNull @NotEmpty @NotBlank @Unique(entityClass = CategoriaModel.class, fieldName = "nome")
     private String nome;
 
     @JsonIgnore

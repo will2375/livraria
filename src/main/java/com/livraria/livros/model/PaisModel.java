@@ -1,6 +1,7 @@
 package com.livraria.livros.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.livraria.livros.exception.Unique;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,6 +22,7 @@ public class PaisModel {
     private Long id;
 
     @Column(unique = true)
+    @Unique(entityClass = PaisModel.class, fieldName = "nome")
     private String nome;
 
     @JsonIgnore

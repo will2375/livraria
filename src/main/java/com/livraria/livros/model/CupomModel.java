@@ -1,5 +1,6 @@
 package com.livraria.livros.model;
 
+import com.livraria.livros.exception.Unique;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +21,7 @@ public class CupomModel {
     private Long id;
 
     @Column(unique = true)
+    @Unique(entityClass = CupomModel.class, fieldName = "codigo")
     private String codigo;
 
     @Column
