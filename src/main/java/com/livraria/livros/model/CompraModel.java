@@ -1,41 +1,37 @@
 package com.livraria.livros.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Entity
-@Builder
-@Data
+@Getter
 public class CompraModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private Integer quantidade;
+    //lista de livros com quantidade
+    @ElementCollection
+    @CollectionTable(
+            name = "COMPRA_ITEM",
+            joinColumns = @JoinColumn(name = "COMPRA_ID")
+    )
+    private List<ItemCompra> itens = new LinkedList<>();
 
-    @Column
-    private Double valor;
+    //lista de cupons
+    @ElementCollection
+    @CollectionTable(
+            name = "COMPRA_CUPOM",
+            joinColumns = @JoinColumn(name = "COMPRA_ID")
+    )
+    @Column(name = "CUPOM")
+    private Set<String> cupons = new LinkedHashSet<>();
 
-    @Column
-    private String cupom;
-
-    @Column
-    private Double valorTotal;
-
-
-    @ManyToOne
-    @JoinColumn(name = "livro_compra_id", referencedColumnName = "id")
-    private LivrosModel livro;
-
-    @ManyToOne
-    @JoinColumn(name = "cliente_compra_id", referencedColumnName = "id")
-    private ClienteModel cliente;
 }

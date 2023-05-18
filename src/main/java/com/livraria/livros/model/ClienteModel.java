@@ -52,9 +52,4 @@ public class ClienteModel {
 
     @Column
     private String cep;
-
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    private List<CompraModel> clientes;
 }

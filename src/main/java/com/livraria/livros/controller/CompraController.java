@@ -1,34 +1,34 @@
 package com.livraria.livros.controller;
 
 import com.livraria.livros.model.CompraModel;
-import com.livraria.livros.service.CompraService;
+import com.livraria.livros.repository.CompraRepository;
+import com.livraria.livros.repository.LivrosRepository;
+import com.livraria.livros.service.compra.NovaCompra;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/compra")
 public class CompraController {
 
     @Autowired
-    CompraService service;
+    private CompraRepository compraRepository;
 
-    @GetMapping
-    public ResponseEntity<Page<CompraModel>> listaCompras() {
-        return ResponseEntity.ok().body(service.listaCompra());
-    }
+    @Autowired
+    private LivrosRepository livrosRepository;
 
+    @ResponseBody
+    @Transactional
     @PostMapping
-    public ResponseEntity<CompraModel> registrarCompra(@RequestBody CompraModel model) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastrar(model));
+    public CompraModel novaCompra
+            (@RequestBody @Valid
+             NovaCompra novaCompra) {
+        CompraModel model = novaCompra.toModel(livrosRepository);
+        compraRepository.save(model);
+        return model;
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<CompraModel> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(service.buscarId(id));
-    }
 }

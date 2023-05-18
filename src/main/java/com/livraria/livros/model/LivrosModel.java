@@ -1,20 +1,16 @@
 package com.livraria.livros.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.livraria.livros.exception.Unique;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
-@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Builder
@@ -25,43 +21,72 @@ public class LivrosModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
-    @NotBlank @NotNull @NotEmpty
-    @Unique(entityClass = LivrosModel.class, fieldName = "titulo")
+    @NotEmpty
+    @Getter
     private String titulo;
 
-    @Column(unique = true, length = 500)
-    @NotBlank @NotNull @NotEmpty
-    private String resumo;
-
-    @Column
-    @NotBlank @NotNull @NotEmpty
+    @NotEmpty
+    @Getter
     private String sumario;
 
-    @Column
-    private Double preco;
+    @Size(min = 1, max = 500)
+    @Getter
+    private String resumo;
 
-    @Column
-    private Integer paginas;
-
-    @Column
-    @NotBlank @NotNull @NotEmpty
+    @NotEmpty
+    @Getter
     private String isbn;
 
-    @Column
+    @NotNull
+    @Future
     private LocalDate dataLancamento;
 
-    @ManyToOne
-    @JoinColumn(name = "autor_id", referencedColumnName = "id")
-    private AutorModel autor;
+    @NotNull
+    @Min(100)
+    @Getter
+    private Integer numeroDePaginas;
+
+    @NotNull
+    @Min(20)
+    @Getter
+    private BigDecimal preco;
 
     @ManyToOne
-    @JoinColumn(name = "categoria_id", referencedColumnName = "id")
+    @NotNull
+    @Getter
     private CategoriaModel categoria;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "livro", cascade = CascadeType.ALL)
-    private List<Livros> compras;
+    @ManyToOne
+    @NotNull
+    @Getter
+    private AutorModel autor;
 
 
+    @Deprecated
+    public LivrosModel() {
+
+    }
+
+    @Builder
+    public LivrosModel(@NotEmpty String titulo, @NotEmpty String sumario, @Size(min = 1, max = 500) String resumo,
+                 @NotEmpty String isbn, @NotNull @Future LocalDate dataLancamento,
+                 @NotNull @Min(100) Integer numeroDePaginas, @NotNull @Min(20) BigDecimal preco,
+                 @NotNull CategoriaModel categoria,
+                 @NotNull AutorModel autor) {
+        super();
+        this.titulo = titulo;
+        this.sumario = sumario;
+        this.resumo = resumo;
+        this.isbn = isbn;
+        this.dataLancamento = dataLancamento;
+        this.numeroDePaginas = numeroDePaginas;
+        this.preco = preco;
+        this.categoria = categoria;
+        this.autor = autor;
+    }
+
+    public Long getId() {
+        Assert.notNull(this.id, "não é possível recuperar o ID de um livro não registrado!");
+        return this.id;
+    }
 }
