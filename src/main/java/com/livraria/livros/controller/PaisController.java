@@ -4,8 +4,10 @@ import com.livraria.livros.model.PaisModel;
 import com.livraria.livros.service.PaisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -21,7 +23,8 @@ public class PaisController {
     }
 
     @PostMapping
-    public PaisModel cadastrar(@RequestBody PaisModel model) {
+    @Transactional
+    public PaisModel cadastrar(@RequestBody @Valid PaisModel model) {
         return service.cadasatrar(model);
     }
 

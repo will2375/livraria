@@ -2,10 +2,7 @@ package com.livraria.livros.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.livraria.livros.exception.Unique;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,7 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Builder
-@Data
 public class PaisModel {
 
     @Id
@@ -29,4 +25,27 @@ public class PaisModel {
     @OneToMany(mappedBy = "pais", cascade = CascadeType.ALL)
     private List<EstadoModel> estado;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public List<EstadoModel> getEstado() {
+        return estado;
+    }
+
+    public void setEstado(List<EstadoModel> estado) {
+        this.estado = estado;
+    }
 }
