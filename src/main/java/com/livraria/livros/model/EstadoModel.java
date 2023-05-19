@@ -1,17 +1,12 @@
 package com.livraria.livros.model;
 
-import com.livraria.livros.exception.Unique;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@Builder
 @Data
 public class EstadoModel {
 
@@ -19,11 +14,19 @@ public class EstadoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
-    @Unique(entityClass = EstadoModel.class, fieldName = "nome")
+    @NotEmpty
     private String nome;
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = "pais_id", referencedColumnName = "id")
-    private PaisModel pais;
+    private PaisModel model;
+
+    @Deprecated
+    public EstadoModel() {
+    }
+
+    public EstadoModel(String nome, PaisModel model) {
+        this.nome = nome;
+        this.model = model;
+    }
 }

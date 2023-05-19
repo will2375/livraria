@@ -21,11 +21,6 @@ public class EstadoService {
         return repository.findAll(pageable);
     }
 
-    public EstadoModel cadastrar(EstadoModel model) {
-
-        return repository.save(model);
-    }
-
     public EstadoModel buscarPorId(Long id) {
         return repository.findById(id).orElseThrow(() -> new RuntimeException("Estado não encontrado"));
     }

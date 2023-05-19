@@ -21,10 +21,6 @@ public class CategoriaService {
         return repository.findAll(pageable);
     }
 
-    public CategoriaModel cadastar(CategoriaModel model) {
-        return repository.save(model);
-    }
-
     public CategoriaModel buscarPorid(Long id){
         return repository.findById(id).orElseThrow(() -> new RuntimeException("Categoria não encontrado"));
     }

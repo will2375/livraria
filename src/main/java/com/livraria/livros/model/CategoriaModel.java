@@ -1,57 +1,31 @@
 package com.livraria.livros.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.livraria.livros.exception.Unique;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import java.util.List;
 
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Entity
-@Builder
+@Getter
 public class CategoriaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
-    @NotNull @NotEmpty @NotBlank @Unique(entityClass = CategoriaModel.class, fieldName = "nome")
+    @NotEmpty
     private String nome;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
-    private List<LivrosModel> livros;
+    @Deprecated
+    public CategoriaModel() {super();}
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
+    public CategoriaModel(@NotEmpty String nome) {
+        super();
         this.nome = nome;
     }
 
-    public List<LivrosModel> getLivros() {
-        return livros;
-    }
-
-    public void setLivros(List<LivrosModel> livros) {
-        this.livros = livros;
-    }
 }

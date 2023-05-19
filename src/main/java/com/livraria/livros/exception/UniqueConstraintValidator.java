@@ -38,7 +38,6 @@ public class UniqueConstraintValidator implements ConstraintValidator<Unique, Ob
                 .createQuery(jpql.toString(), Long.class)
                 .setParameter("fieldValue", value).getSingleResult();
 
-        return count == 01;
+        return count == 0l;
     }
-
 }

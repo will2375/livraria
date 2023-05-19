@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class PaisService {
 
     @Autowired
@@ -20,11 +21,6 @@ public class PaisService {
         Pageable pageable = PageRequest.of(0, 2);
 
         return repository.findAll(pageable);
-    }
-
-    public PaisModel cadasatrar(PaisModel model) {
-
-        return repository.save(model);
     }
 
     public PaisModel buscarPorId(Long id) {
