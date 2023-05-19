@@ -1,9 +1,10 @@
 package com.livraria.livros.model;
 
+import com.livraria.livros.repository.LivrosRepository;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
@@ -14,7 +15,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Entity
 @Builder
-@Data
+@Getter
+@Setter
 public class LivrosModel {
 
     @Id
@@ -22,19 +24,15 @@ public class LivrosModel {
     private Long id;
 
     @NotEmpty
-    @Getter
     private String titulo;
 
     @NotEmpty
-    @Getter
     private String sumario;
 
     @Size(min = 1, max = 500)
-    @Getter
     private String resumo;
 
     @NotEmpty
-    @Getter
     private String isbn;
 
     @NotNull
@@ -43,22 +41,18 @@ public class LivrosModel {
 
     @NotNull
     @Min(100)
-    @Getter
     private Integer numeroDePaginas;
 
     @NotNull
     @Min(20)
-    @Getter
     private BigDecimal preco;
 
     @ManyToOne
     @NotNull
-    @Getter
     private CategoriaModel categoria;
 
     @ManyToOne
     @NotNull
-    @Getter
     private AutorModel autor;
 
 

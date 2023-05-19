@@ -24,8 +24,7 @@ public class CompraController {
     @Transactional
     @PostMapping
     public CompraModel novaCompra
-            (@RequestBody @Valid
-             NovaCompra novaCompra) {
+            (@RequestBody @Valid NovaCompra novaCompra) {
         CompraModel model = novaCompra.toModel(livrosRepository);
         compraRepository.save(model);
         return model;

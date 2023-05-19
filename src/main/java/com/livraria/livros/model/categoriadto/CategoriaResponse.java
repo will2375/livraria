@@ -8,5 +8,10 @@ public class CategoriaResponse {
 
     private Long categoriaId;
 
-    public CategoriaResponse(CategoriaModel model) {this.categoriaId = model.getId();}
+    private String nome;
+
+    public CategoriaResponse(CategoriaModel model) {
+        this.categoriaId = model.getId();
+        this.nome = model.getNome();
+    }
 }
