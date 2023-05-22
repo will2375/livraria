@@ -3,6 +3,7 @@ package com.livraria.livros.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,5 +34,8 @@ public class CompraModel {
     )
     @Column(name = "CUPOM")
     private Set<String> cupons = new LinkedHashSet<>();
+
+    @Setter
+    private BigDecimal valorTotal;
 
 }
