@@ -12,6 +12,8 @@ import java.util.Set;
 
 @Entity
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class CompraModel {
 
     @Id
@@ -37,5 +39,4 @@ public class CompraModel {
 
     @Setter
     private BigDecimal valorTotal;
-
 }
