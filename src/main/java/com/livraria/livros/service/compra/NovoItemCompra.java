@@ -17,10 +17,12 @@ public class NovoItemCompra {
 
 
     public ItemCompra toModel(LivrosRepository repository) {
-        var item = new ItemCompra();
-        repository.findById(getLivroId())
-                .ifPresent(item::setLivrosModel);
-        item.setQuantidade(getQuantidade());
-        return item;
+        var livro = repository
+                .findById(getLivroId())
+                .orElseThrow(() -> new RuntimeException("livro não encontrado"));
+        return ItemCompra.builder()
+                .livrosModel(livro)
+                .quantidade(getQuantidade())
+                .build();
     }
 }

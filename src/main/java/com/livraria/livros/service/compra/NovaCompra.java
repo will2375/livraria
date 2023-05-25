@@ -37,10 +37,7 @@ public class NovaCompra {
         var compra = new CompraModel();
         for (var item : itens) {
             var newItem = item.toModel(repository);
-            compra.getItens().add(newItem);
-            valorTotal = (BigDecimal.ZERO.add(newItem.getLivrosModel().getPreco()));
-            BigDecimal total = CalculoLivro.calcular(newItem.getQuantidade(), valorTotal);
-            compra.setValorTotal(total);
+            compra.addItem(newItem);
         }
         compra.getCupons().addAll(cupons);
         return compra;
