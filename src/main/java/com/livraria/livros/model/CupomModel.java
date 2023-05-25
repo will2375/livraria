@@ -1,18 +1,13 @@
 package com.livraria.livros.model;
 
-import com.livraria.livros.exception.Unique;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@Builder
 @Data
 public class CupomModel {
 
@@ -20,14 +15,19 @@ public class CupomModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
-    @Unique(entityClass = CupomModel.class, fieldName = "codigo")
+    @NotEmpty
     private String codigo;
 
-    @Column
-    private Double desconto;
+    private BigDecimal desconto;
 
-    @Column
     private LocalDate validade;
 
+    @Deprecated
+    public CupomModel(){}
+
+    public CupomModel(String codigo, BigDecimal desconto, LocalDate validade) {
+        this.codigo = codigo;
+        this.desconto = desconto;
+        this.validade = validade;
+    }
 }
